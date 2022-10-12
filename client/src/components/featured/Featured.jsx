@@ -24,6 +24,7 @@ export default function Featured({ type, setGenre }) {
   }, [type]);
 
   console.log(content);
+  console.log(type);
   return (
     <div className="featured">
       {type && (

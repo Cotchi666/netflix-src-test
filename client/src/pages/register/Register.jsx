@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef } from "react";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import "./register.scss";
 
 export default function Register() {
@@ -22,12 +22,20 @@ export default function Register() {
     setPassword(passwordRef.current.value);
     setUsername(usernameRef.current.value);
 
-
     try {
-     const data = await axios.post("auth/register", { email,username, password });
-      console.log("data", data)
+      const data = await axios.post("auth/register", {
+        email,
+        username,
+        password,
+      });
+      console.log("data", data);
       history.push("/login");
     } catch (err) {}
+  };
+  const signin = (e) => {
+    e.preventDefault();
+    console.log("123")
+    history.push("/login");
   };
   return (
     <div className="register">
@@ -38,7 +46,9 @@ export default function Register() {
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt=""
           />
-          <button className="loginButton">Sign In</button>
+           <button className="loginButton"  onClick={signin}>
+            Sign In
+          </button>
         </div>
       </div>
       <div className="container">
@@ -47,6 +57,7 @@ export default function Register() {
         <p>
           Ready to watch? Enter your email to create or restart your membership.
         </p>
+      
         {!email ? (
           <div className="input">
             <input type="email" placeholder="email address" ref={emailRef} />
