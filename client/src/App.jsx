@@ -3,6 +3,8 @@ import Home from "./pages/home/Home";
 import Register from "./pages/register/Register";
 import Watch from "./pages/watch/Watch";
 import Login from "./pages/login/Login";
+import HomeTest from "./pages/home/HomeTest";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,8 +19,11 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           {user ? <Home /> : <Redirect to="/register" />}
+        </Route> */}
+        <Route exact path="/">
+          {user ? <HomeTest /> : <Redirect to="/register" />}
         </Route>
         <Route path="/register">
           {!user ? <Register /> : <Redirect to="/" />}
