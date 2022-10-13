@@ -34,10 +34,9 @@ export const getProfiles = (token) => (dispatch) => {
     method: "get",
     url: "http://localhost:8000/api/profile/getProfiles",
     headers: {
-      Authorization: "Bearer " + token,
+      token: "Bearer " + token,
     },
   };
-
   axios(config)
     .then((res) => dispatch(getProfilesSuccess(res.data.profiles)))
     .catch((err) => dispatch(getProfilesFail(err)));
@@ -61,25 +60,29 @@ const addProfileFail = (err) => {
   };
 };
 
-export const addProfile = ({ name, token }) => (dispatch) => {
-  dispatch(addProfileReq());
+export const addProfile =
+  ({ name, token }) =>
+  (dispatch) => {
+    dispatch(addProfileReq());
+    console.log("vao profile", token);
 
-  let config = {
-    method: "post",
-    url: "http://localhost:8000/api/profile/addProfile",
-    headers: {
-      Authorization: "Bearer " + token,
-      "Content-Type": "application/json",
-    },
-    data: { name: name },
+    let config = {
+      method: "post",
+      url: "http://localhost:8000/api/profile/addProfile",
+      headers: {
+        token: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+      data: { name: name },
+    };
+   
+    axios(config)
+      .then((res) => {
+        dispatch(addProfileSuccess(res.data.newProfile));
+        console.log("data ", res.data.newProfile);
+      })
+      .catch((err) => dispatch(addProfileFail(err)));
   };
-
-  axios(config)
-    .then((res) => {
-      dispatch(addProfileSuccess(res.data.newProfile));
-    })
-    .catch((err) => dispatch(addProfileFail(err)));
-};
 
 export const setCurrentProfile = (user) => {
   localStorage.setItem("currentProfile", JSON.stringify(user));

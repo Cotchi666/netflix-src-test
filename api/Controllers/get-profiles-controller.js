@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Profile = require("../models/ProfileModel");
 const getProfilesController = async (req, res) => {
   //logged user id
+  console.log("Vao get s");
   try {
     const { data: _id } = req.user.id;
     let profiles = await Profile.find({

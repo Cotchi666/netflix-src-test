@@ -3,7 +3,7 @@ const Profile = require("../models/ProfileModel");
 
 const getProfileController = async (req, res) => {
   const { profileId } = req.params;
-
+  console.log("Vao get 1");
   try {
     // const { data: _id } = req.user.id;
     let profile = await Profile.find({

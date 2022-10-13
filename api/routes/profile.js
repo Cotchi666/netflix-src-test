@@ -6,19 +6,20 @@ const getProfileController = require("../Controllers/get-profile-controller");
 // const dislikeShowController = require("../Controllers/handle-dislike");
 // const addToListController = require("../Controllers/add-toList-controller");
 const verify = require("../verifyToken");
+const authenticateToken = require("../pro");
 
 const router = express.Router();
 
-router.post("/auth/addProfile", verify, addProfileController);
-
-router.get("/auth/getProfiles", verify, getProfilesController);
-
+router.post("/addProfile",authenticateToken, addProfileController);
+console.log("Vao add ne");
+router.get("/getProfiles", verify, getProfilesController);
+console.log("Vao ne 2");
 router.get(
-  "/auth/getProfile/:profileId",
+  "/getProfile/:profileId",
   verify,
   getProfileController
 );
-
+console.log("Vao ne 3");
 // router.post(
 //   "/auth/profile/like/:showId",
 //   authenticateToken,

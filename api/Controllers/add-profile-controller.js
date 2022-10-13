@@ -1,9 +1,14 @@
 const User = require("../models/User");
 const Profile = require("../models/ProfileModel");
 const addProfileController = async (req, res) => {
+  console.log("Vao add");
   //logged user id
-  const { data: _id } = req.user.id;
-  const { name } = req.user.username;
+
+  const { data: _id } = req.id;
+  const { name } = req.body;
+  console.log("Vao _id", req.id);
+  console.log("Vao name", name);
+
   Profile.create({
     name,
     userId: _id,
