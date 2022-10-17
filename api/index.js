@@ -7,7 +7,6 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
-const profileRoute = require("./routes/profile");
 
 dotenv.config();
 
@@ -26,6 +25,11 @@ const corsOptions = {
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
 };
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+})
 app.use(cors(corsOptions));
 app.use(express.json());
 
@@ -33,8 +37,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/movies", movieRoute);
 app.use("/api/lists", listRoute);
-app.use("/api/profile", profileRoute);
 
-app.listen(8000, () => {
+app.listen(8800, () => {
   console.log("Backend server is running!");
 });

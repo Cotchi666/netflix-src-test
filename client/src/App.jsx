@@ -1,10 +1,10 @@
 import "./app.scss";
 import Home from "./pages/home/Home";
+
 import Register from "./pages/register/Register";
 import Watch from "./pages/watch/Watch";
 import Login from "./pages/login/Login";
-import HomeTest from "./pages/home/HomeTest";
-
+import Movie from "./pages/movie/movie";
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,7 +23,7 @@ const App = () => {
           {user ? <Home /> : <Redirect to="/register" />}
         </Route> */}
         <Route exact path="/">
-          {user ? <HomeTest /> : <Redirect to="/register" />}
+          {user ? <Home /> : <Redirect to="/register" />}
         </Route>
         <Route path="/register">
           {!user ? <Register /> : <Redirect to="/" />}
@@ -39,6 +39,9 @@ const App = () => {
             </Route>
             <Route path="/watch">
               <Watch />
+            </Route>
+            <Route path="/movie">
+              <Movie />
             </Route>
           </>
         )}

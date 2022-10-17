@@ -8,7 +8,15 @@ import axios from "axios";
 const Home = ({ type }) => {
   const [lists, setLists] = useState([]);
   const [genre, setGenre] = useState(null);
+  const [filter, setFilter] = useState([]);
 
+  const childToParent = (data) => {
+    if (data.length === 0 || data === []) {
+      alert('No results found');
+    } else {
+      setFilter(data);
+    }
+  }
   useEffect(() => {
     const getRandomLists = async () => {
       try {
@@ -33,7 +41,7 @@ const Home = ({ type }) => {
 
   return (
     <div className="home">
-      <Navbar />
+      <Navbar childToParent={childToParent}/>
       <Featured type={type} setGenre={setGenre} />
       {lists.map((list) => (
         <List list={list} />
