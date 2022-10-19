@@ -23,10 +23,11 @@ const Navbar = ({ childToParent }) => {
     });
   };
   const showProfile = (e) => {
-    e.preventDefault();
-    console.log("show");
-    history.push("/profile");
+    // e.preventDefault();
+    // console.log("show");
+    // history.push("/profile");
   };
+  
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">

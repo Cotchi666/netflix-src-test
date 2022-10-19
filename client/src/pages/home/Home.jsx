@@ -4,6 +4,7 @@ import "./home.scss";
 import List from "../../components/list/List";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Home = ({ type }) => {
   const [lists, setLists] = useState([]);
@@ -12,11 +13,12 @@ const Home = ({ type }) => {
 
   const childToParent = (data) => {
     if (data.length === 0 || data === []) {
-      alert('No results found');
+      alert("No results found");
     } else {
       setFilter(data);
+      console.log("dataco", data);
     }
-  }
+  };
   useEffect(() => {
     const getRandomLists = async () => {
       try {
@@ -27,7 +29,8 @@ const Home = ({ type }) => {
           {
             headers: {
               token:
-              "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+                "Bearer " +
+                JSON.parse(localStorage.getItem("user")).accessToken,
             },
           }
         );
@@ -41,11 +44,21 @@ const Home = ({ type }) => {
 
   return (
     <div className="home">
-      <Navbar childToParent={childToParent}/>
+      <Navbar childToParent={childToParent} />
       <Featured type={type} setGenre={setGenre} />
-      {lists.map((list) => (
-        <List list={list} />
+      {filter.map((filter) => (
+        <Link to={{ pathname: "/watch", movie: filter }}>
+          <h1>{filter.title}</h1>
+        </Link>
       ))}
+
+      {!lists ? (
+        <div className="notice">
+          No {type} for this genre <strong>{genre}</strong>
+        </div>
+      ) : (
+        lists.map((list, index) => <List key={index} list={list} />)
+      )}
     </div>
   );
 };
