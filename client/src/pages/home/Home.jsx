@@ -46,6 +46,7 @@ const Home = ({ type }) => {
 
   return (
     <div className="home">
+      
       <Navbar childToParent={childToParent} />
       <Featured type={type} setGenre={setGenre} />
       {filter ? (
