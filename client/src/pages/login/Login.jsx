@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
-import { login } from "../../authContext/apiCalls";
+import { login, googleLogin } from "../../authContext/apiCalls";
 import { AuthContext } from "../../authContext/AuthContext";
 import "./login.scss";
-
+import jwtDecode from "jwt-decode";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +12,15 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     login({ email, password }, dispatch);
+  };
+  const handleGoogleLogin = async (googleData) => {
+    const dataParse = jwtDecode(googleData.credential);
+    console.log(dataParse);
+    // googleLogin({ email, password }, dispatch);
+    googleLogin(dataParse, dispatch);
+  };
+   const handleGoogleFailure = () => {
+    // console.log("Failure");
   };
   return (
     <div className="login">
@@ -39,6 +49,20 @@ export default function Login() {
           <button className="loginButton" onClick={handleLogin}>
             Sign In
           </button>
+          <GoogleLogin
+            text="signin with Google"
+            // size="medium"
+            shape="rectangular"
+            // locale="circle"
+            ux_mode="popup"
+            cancel_on_tap_outside
+            context="signin"
+            theme="outline"
+            width="70"
+            onSuccess={handleGoogleLogin}
+            onFailure={handleGoogleFailure}
+            cookiePolicy={"single_host_origin"}
+          />
           <span>
             New to Netflix? <b>Sign up now.</b>
           </span>

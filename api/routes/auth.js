@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
       res.status(401).json("Wrong password or username!");
 
     const accessToken = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin},
+      { id: user._id, isAdmin: user.isAdmin },
       process.env.SECRET_KEY,
       { expiresIn: "5d" }
     );
@@ -46,5 +46,47 @@ router.post("/login", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.post("/google_login", async (req, res) => {
+  try {
+    const { email, name } = req.body;
+    console.log(email);
+    // res.status(200).json({ msg: "ok" });
 
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      try {
+        const newUser = new User({
+          username: name,
+          email: email,
+          password: CryptoJS.AES.encrypt(
+            "thisisakeyasddadasdasd",
+            process.env.SECRET_KEY
+          ).toString(),
+        });
+        const userrs = await newUser.save();
+        const { password, ...info } = userrs._doc;
+
+        res.status(200).json({ ...info, accessToken });
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      try {
+        const accessToken = jwt.sign(
+          { id: user._id, isAdmin: user.isAdmin },
+          process.env.SECRET_KEY,
+          { expiresIn: "5d" }
+        );
+
+        const { password, ...info } = user._doc;
+
+        res.status(200).json({ ...info, accessToken });
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;

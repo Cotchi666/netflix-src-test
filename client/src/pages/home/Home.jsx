@@ -10,10 +10,12 @@ const Home = ({ type }) => {
   const [lists, setLists] = useState([]);
   const [genre, setGenre] = useState(null);
   const [filter, setFilter] = useState([]);
+  const [nodata, setNoData] = useState([]);
 
+  
   const childToParent = (data) => {
     if (data.length === 0 || data === []) {
-      alert("No results found");
+      setNoData(data);
     } else {
       setFilter(data);
       console.log("dataco", data);
@@ -46,11 +48,16 @@ const Home = ({ type }) => {
     <div className="home">
       <Navbar childToParent={childToParent} />
       <Featured type={type} setGenre={setGenre} />
-      {filter.map((filter) => (
-        <Link to={{ pathname: "/watch", movie: filter }}>
-          <h1>{filter.title}</h1>
-        </Link>
-      ))}
+      {filter ? (
+        filter.map((filter) => (
+          <Link to={{ pathname: "/watch", movie: filter }}>
+            <h1>{filter.title}</h1>
+          </Link>
+        ))
+      ) : (
+        filter = []
+        
+      )}
 
       {!lists ? (
         <div className="notice">

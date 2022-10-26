@@ -11,6 +11,16 @@ export const login = async (user, dispatch) => {
     dispatch(loginFailure());
   }
 };
+export const googleLogin =  async (data, dispatch) => {
+  dispatch(loginStart());
+  console.log("vo gg login")
+  try {
+    const res = await axios.post(`/auth/google_login`, data);
+    dispatch(loginSuccess(res.data));
+  } catch (err) {
+    dispatch(loginFailure());
+  }
+};
 // export const login = async (user, dispatch) => {
 //   dispatch(loginStart());
 //   try {
