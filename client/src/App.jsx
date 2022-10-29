@@ -5,6 +5,7 @@ import Register from "./pages/register/Register";
 import Watch from "./pages/watch/Watch";
 import Login from "./pages/login/Login";
 import Movie from "./pages/movie/movie";
+// import MyList from "./pages/myList/MyList";
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,7 +24,7 @@ const App = () => {
           {user ? <Home /> : <Redirect to="/register" />}
         </Route> */}
         <Route exact path="/">
-          {user ? <Home /> : <Redirect to="/register" />}
+          {user ? <Home  /> : <Redirect to="/register" />}
         </Route>
         <Route path="/register">
           {!user ? <Register /> : <Redirect to="/" />}
@@ -43,6 +44,9 @@ const App = () => {
             <Route path="/movie">
               <Movie />
             </Route>
+            {/* <Route path="/mylist">
+              <MyList />
+            </Route> */}
           </>
         )}
       </Switch>

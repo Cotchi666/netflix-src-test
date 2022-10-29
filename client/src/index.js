@@ -4,6 +4,7 @@ import App from "./App";
 import { AuthContextProvider } from "./authContext/AuthContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>

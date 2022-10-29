@@ -49,7 +49,10 @@ const Navbar = ({ childToParent }) => {
             <span className="navbarmainLinks">Movies</span>
           </Link>
           <span>New and Popular</span>
+          <Link to="/mylist" className="link">
           <span>My List</span>
+          </Link>
+         
         </div>
         <div className="right">
           <div className="search">

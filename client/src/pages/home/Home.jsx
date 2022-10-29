@@ -11,8 +11,8 @@ const Home = ({ type }) => {
   const [genre, setGenre] = useState(null);
   const [filter, setFilter] = useState([]);
   const [nodata, setNoData] = useState([]);
+  console.log("type", type);
 
-  
   const childToParent = (data) => {
     if (data.length === 0 || data === []) {
       setNoData(data);
@@ -46,19 +46,15 @@ const Home = ({ type }) => {
 
   return (
     <div className="home">
-      
       <Navbar childToParent={childToParent} />
       <Featured type={type} setGenre={setGenre} />
-      {filter ? (
-        filter.map((filter) => (
-          <Link to={{ pathname: "/watch", movie: filter }}>
-            <h1>{filter.title}</h1>
-          </Link>
-        ))
-      ) : (
-        filter = []
-        
-      )}
+      {filter
+        ? filter.map((filter) => (
+            <Link to={{ pathname: "/watch", movie: filter }}>
+              <h1>{filter.title}</h1>
+            </Link>
+          ))
+        : (filter = [])}
 
       {!lists ? (
         <div className="notice">
