@@ -45,11 +45,17 @@ router.post("/register", async (req, res) => {
 
 //LOGIN
 router.post("/login", async (req, res) => {
+  console.log("1", req.body.email);
+
+  console.log("3", req.body.password);
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return res.status(401).json("Wrong password or username!");
+  }
   try {
-    const user = await User.findOne({ email: req.body.email });
-    !user && res.status(401).json("Wrong password or username!");
     console.log("jjfjf", user);
-    const validPassword = await bcrypt.compare(
+    const validPassword = await bcrypt.compareSync(
       req.body.password,
       user.password
     );
@@ -59,12 +65,13 @@ router.post("/login", async (req, res) => {
       process.env.SECRET_KEY,
       { expiresIn: "5d" }
     );
-
+    console.log("accessToken", accessToken);
+    console.log("user", user._doc);
     const { password, ...info } = user._doc;
 
     res.status(200).json({ ...info, accessToken });
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 router.post("/google_login", async (req, res) => {
