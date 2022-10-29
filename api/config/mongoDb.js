@@ -1,15 +1,18 @@
-// const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-// async function connect() {
-//     try {
-//         await mongoose.connect(process.env.MONGO_URL, {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true,
-//         });
-//         console.log('Connected');
-//     } catch (err) {
-//         console.log('Failed')
-//     }
-// }
+function connect() {
+  try {
+    mongoose.set("useNewUrlParser", true);
+    mongoose.set("useFindAndModify", false);
+    mongoose.set("useCreateIndex", true);
+    mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected");
+  } catch (err) {
+    console.log("Failed");
+  }
+}
 
-// module.exports = { connect };
+module.exports = { connect };
