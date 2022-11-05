@@ -66,7 +66,7 @@ const faq = [
 ]
 
 const Home = () => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("user")
     return (
       token ? <Redirect to="/browse" /> :
         <div className={styles.home}>

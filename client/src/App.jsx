@@ -14,33 +14,50 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./authContext/AuthContext";
-import Payment from './components/Payment';
-import RegisterContinue from './components/RegisterContinue';
-import RegisterForm from './components/RegisterForm';
-import RegisterPlan from './components/RegisterPlan';
+import Payment from "./components/Payment";
+import RegisterContinue from "./components/RegisterContinue";
+import RegisterForm from "./components/RegisterForm";
+import RegisterPlan from "./components/RegisterPlan";
 const App = () => {
   const { user } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
-        {/* <Route exact path="/">
-          {user ? <Browse /> : <Redirect to="/register" />}
-        </Route> */}
-       <Route path="/" exact render={(props) => <Home {...props}/>} />
-       <Route path="/register" exact render={(props) => <Login {...props}/>} />
-                <Route path="/signup" exact render={(props) => <RegisterContinue {...props}/>} />
-                <Route path="/signup/regform" exact render={(props) => <RegisterForm {...props}/>} />
-                <Route path="/signup/planform" exact render={(props) => <RegisterPlan {...props}/>} />
-                <Route path="/signup/payment" exact  render={(props) => <Payment {...props} />} />
-                {/* <Route path = "/login" exact component = {Login}/> */}
+      
+        <Route path="/" exact render={(props) => <Home {...props} />} />
+        <Route
+          path="/register"
+          exact
+          render={(props) => <Login {...props} />}
+        />
+        <Route
+          path="/signup"
+          exact
+          render={(props) => <RegisterContinue {...props} />}
+        />
+        <Route
+          path="/signup/regform"
+          exact
+          render={(props) => <RegisterForm {...props} />}
+        />
+        <Route
+          path="/signup/planform"
+          exact
+          render={(props) => <RegisterPlan {...props} />}
+        />
+        <Route
+          path="/signup/payment"
+          exact
+          render={(props) => <Payment {...props} />}
+        />
+
         <Route exact path="/browse">
-          {/* {user ? <Browse  /> : <Redirect to="/register" />} */}
-          {user ? <Browse  /> : <Redirect to="/" />}
+          {user ? <Browse /> : <Redirect to="/" />}
         </Route>
-        {/* <Route path="/register">
-          {!user ? <Register /> : <Redirect to="/" />}
-        </Route> */}
-        <Route path="/login">{!user ? <Login /> : <Redirect to="/browse" />}</Route>
+
+        <Route path="/login">
+          {!user ? <Login /> : <Redirect to="/browse" />}
+        </Route>
         {user && (
           <>
             <Route path="/movies">
@@ -55,7 +72,6 @@ const App = () => {
             <Route path="/movie">
               <Movie />
             </Route>
-            
           </>
         )}
       </Switch>

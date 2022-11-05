@@ -53,21 +53,7 @@ console.log("plan" , plan)
                 password,
               });
             } catch (error) {}
-            // history.push("/login");
-            //  dispatch(makeRegisterRequest({email,password}))
-            // export const makeRegisterRequest = (userDetails) => (dispatch) => {
-            //   dispatch(registerRequest());
-            //   axios
-            //     .post(`${process.env.REACT_APP_BASE_URL}/api/register`, userDetails)
-            //     .then((res) => {
-            //       dispatch(registerSuccess(res.data.message));
-            //       dispatch(makeLoginRequest(userDetails));
-            //     })
-            //     .catch((err) => {
-            //       dispatch(registerFailure(err.response.data.message));
-            //     });
-            // };
-            login({ email, password }, dispatch);
+            await login({ email, password }, dispatch);
             history.push("/browse");
           }
         } catch (err) {
@@ -80,11 +66,12 @@ console.log("plan" , plan)
     };
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
+    
   };
 
   const token = localStorage.getItem("token");
   return token ? (
-    <Redirect to="/profiles" />
+    <Redirect to="/" />
   ) : (
     <RegisterLayout>
       <div className={styles.register_payment_container}>
