@@ -18,18 +18,13 @@ import Payment from "./components/Payment";
 import RegisterContinue from "./components/RegisterContinue";
 import RegisterForm from "./components/RegisterForm";
 import RegisterPlan from "./components/RegisterPlan";
+// import { Login } from "../Pages/Login/Login";
 const App = () => {
   const { user } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
-      
         <Route path="/" exact render={(props) => <Home {...props} />} />
-        <Route
-          path="/register"
-          exact
-          render={(props) => <Login {...props} />}
-        />
         <Route
           path="/signup"
           exact
@@ -50,14 +45,11 @@ const App = () => {
           exact
           render={(props) => <Payment {...props} />}
         />
-
-        <Route exact path="/browse">
-          {user ? <Browse /> : <Redirect to="/" />}
-        </Route>
-
+        <Route path="/browse">{user ? <Browse /> : <Redirect to="/" />}</Route>
         <Route path="/login">
           {!user ? <Login /> : <Redirect to="/browse" />}
         </Route>
+
         {user && (
           <>
             <Route path="/movies">
@@ -72,6 +64,9 @@ const App = () => {
             <Route path="/movie">
               <Movie />
             </Route>
+            {/* <Route path="/mylist">
+              <MyList />
+            </Route> */}
           </>
         )}
       </Switch>

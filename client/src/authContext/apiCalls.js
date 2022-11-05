@@ -7,7 +7,7 @@ export const login = async (user, dispatch) => {
   try {
     const res = await axios.post(`http://localhost:8800/api/auth/login`, user);
     dispatch(loginSuccess(res.data));
-   
+    // localStorage.setItem("token", token);
   } catch (err) {
     dispatch(loginFailure());
   }

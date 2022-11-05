@@ -14,7 +14,7 @@ const Payment = (props) => {
   const { email, password, plan } = props.location.state;
   // const {isAuth} = useSelector(state=>state.login)
   const { dispatch } = useContext(AuthContext);
-console.log("plan" , plan)
+  console.log("plan", plan);
   const history = useHistory();
 
   // if(isAuth){
@@ -38,23 +38,27 @@ console.log("plan" , plan)
         try {
           const paymentId = response.razorpay_payment_id;
           console.log("payment id", paymentId);
-          
-          const captureResponse = await Axios.post(`http://localhost:8800/capture/${paymentId}`, {
-            amount: plan,
-          });
+
+          const captureResponse = await Axios.post(
+            `http://localhost:8800/capture/${paymentId}`,
+            {
+              amount: plan,
+            }
+          );
           const successObj = JSON.parse(captureResponse.data);
           const captured = successObj.captured;
-          const username = "hello1";
+          
+          const username = "hello2";
           if (captured) {
             try {
-              const data = await Axios.post("http://localhost:8800/api/auth/register", {
+              await Axios.post("http://localhost:8800/api/auth/register", {
                 email,
                 username,
                 password,
               });
+              await login({ email, password }, dispatch);
+              history.push("/browse");
             } catch (error) {}
-            await login({ email, password }, dispatch);
-            history.push("/browse");
           }
         } catch (err) {
           console.log(err.message);
@@ -66,13 +70,11 @@ console.log("plan" , plan)
     };
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
-    
   };
 
-  const token = localStorage.getItem("token");
-  return token ? (
-    <Redirect to="/" />
-  ) : (
+  //const token = localStorage.getItem("token");
+  const token = localStorage.getItem("user");
+  return (
     <RegisterLayout>
       <div className={styles.register_payment_container}>
         <img src="/images/lock.png" alt="secure" />
