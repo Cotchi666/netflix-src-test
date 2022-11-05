@@ -13,6 +13,7 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     login({ email, password }, dispatch);
+    
   };
   const handleGoogleLogin = async (googleData) => {
     const dataParse = jwtDecode(googleData.credential);

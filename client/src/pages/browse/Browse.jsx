@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Home = ({ type }) => {
+const Browse = ({ type }) => {
   const [lists, setLists] = useState([]);
   const [genre, setGenre] = useState(null);
   const [filter, setFilter] = useState([]);
@@ -67,4 +67,4 @@ const Home = ({ type }) => {
   );
 };
 
-export default Home;
+export default Browse;
