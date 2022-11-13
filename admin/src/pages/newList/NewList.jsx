@@ -3,8 +3,8 @@ import "./newList.css";
 import storage from "../../firebase";
 import { createMovie, getMovies } from "../../context/movieContext/apiCalls";
 import { MovieContext } from "../../context/movieContext/MovieContext";
-import { ListContext } from "../../../../client/src/listContext/ListContext";
-import { createList } from "../../../../client/src/listContext/apiCalls";
+import { ListContext } from "../../context/listContext/ListContext";
+import { createList } from "../../context/listContext/apiCalls";
 import { useHistory } from "react-router-dom";
 
 export default function NewList() {

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Movie = require("../models/Movie");
 const verify = require("../verifyToken");
-const verify2 = require("../verify");
+//const verify2 = require("../verify");
 //CREATE
 
 router.post("/", verify, async (req, res) => {
