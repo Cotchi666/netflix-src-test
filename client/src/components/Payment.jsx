@@ -11,7 +11,7 @@ import Loader from "./Loader/Loader";
 import { useContext } from "react";
 import { AuthContext } from "../authContext/AuthContext";
 const Payment = (props) => {
-  const { email, password, plan } = props.location.state;
+  const { email, password,username ,plan } = props.location.state;
   // const {isAuth} = useSelector(state=>state.login)
   const { dispatch } = useContext(AuthContext);
   console.log("plan", plan);
@@ -48,7 +48,7 @@ const Payment = (props) => {
           const successObj = JSON.parse(captureResponse.data);
           const captured = successObj.captured;
           
-          const username = "hello2";
+          //const username = "hello2";
           if (captured) {
             try {
               await Axios.post("http://localhost:8800/api/auth/register", {
