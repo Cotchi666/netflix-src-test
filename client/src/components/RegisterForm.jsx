@@ -7,21 +7,26 @@ import { Redirect, useHistory } from "react-router-dom";
 const RegisterForm = (props) => {
   const [email, setEmail] = useState(props.location.state.email);
   const [password, setPassword] = useState("");
+  const [username, setUserName] = useState("");
   const history = useHistory();
   const [error, setError] = useState(false);
   const handleContinue = () => {
-    if (email && password) {
+    if (email && password && username) {
       history.push("/signup/planform", {
         email,
+        username,
         password,
       });
     } else {
       setError(true);
     }
   };
+console.log("username", username)
+console.log("password", password)
+console.log("email", email)
 
   // const token = localStorage.getItem("token")
-  const token = localStorage.getItem("user");
+ // const token = localStorage.getItem("user");
   return (
     <RegisterLayout>
       <div className={styles.register_form}>
@@ -42,6 +47,17 @@ const RegisterForm = (props) => {
             type="email"
             defaultValue={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className={styles.register_form_input}>
+          <TextField
+            variant="filled"
+            label="UserName"
+            fullWidth
+            color="secondary"
+            type="text"
+            defaultValue={username}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className={styles.register_form_input}>

@@ -1,82 +1,39 @@
 import React, { useState } from "react";
 import RegisterLayout from "./RegisterLayout";
+import RegisterPlanTable from "./RegisterPlanTable";
 import styles from "../Styles/Register.module.css";
-import TextField from "@material-ui/core/TextField";
 import { Redirect, useHistory } from "react-router-dom";
 
-const RegisterForm = (props) => {
-  const [email, setEmail] = useState(props.location.state.email);
-  const [password, setPassword] = useState("");
-  const [username, setUserName] = useState("");
+const RegisterPlan = (props) => {
   const history = useHistory();
-  const [error, setError] = useState(false);
+  const [plan, setPlan] = useState(199);
+  const { email, password ,username} = props.location.state;
   const handleContinue = () => {
-    if (email && password && username) {
-      history.push("/signup/planform", {
-        email,
-        username,
-        password,
-      });
-    } else {
-      setError(true);
-    }
+    history.push({
+      pathname: "/signup/payment",
+      state: { plan, email, username,password ,},
+    });
   };
-console.log("username", username)
-console.log("password", password)
-console.log("email", email)
 
-  // const token = localStorage.getItem("token")
- // const token = localStorage.getItem("user");
+  //    const token = localStorage.getItem("token")
+  const token = localStorage.getItem("user");
   return (
     <RegisterLayout>
-      <div className={styles.register_form}>
+      <div className={styles.register_planform}>
         <p>
-          STEP <strong>1</strong> OF <strong>3</strong>
+          STEP <strong>2</strong> OF <strong>3</strong>
         </p>
-        <h3>
-          Create a password to start your <br /> membership.
-        </h3>
-        <p>Just a few more steps and you're done!</p>
-        <p>We hate paper work, too.</p>
-        <div className={styles.register_form_input}>
-          <TextField
-            variant="filled"
-            label="Email"
-            fullWidth
-            color="secondary"
-            type="email"
-            defaultValue={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <h3>Choose the plan that's right for you</h3>
+        <p>Downgrade or upgrade at any time</p>
+        <div className={styles.register_planform_plans}>
+          <RegisterPlanTable setPlan={setPlan} plan={plan} />
         </div>
-        <div className={styles.register_form_input}>
-          <TextField
-            variant="filled"
-            label="UserName"
-            fullWidth
-            color="secondary"
-            type="text"
-            defaultValue={username}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </div>
-        <div className={styles.register_form_input}>
-          <TextField
-            variant="filled"
-            label="Add a password"
-            fullWidth
-            color="secondary"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {error && (
-          <div style={{ color: "red", fontSize: "small" }}>
-            Please fill all required fields correctly
-          </div>
-        )}
-        <div>
+        <p className={styles.register_planform_p}>
+          Full HD (1080p), Ultra HD (4K) and HDR availability subject to your
+          internet service and device capabilities. Not all content available in
+          HD, Full HD, Ultra HD or HDR. See Terms of Use for more details.
+        </p>
+        <div className={styles.register_planform_button}>
           <button onClick={() => handleContinue()}>CONTINUE</button>
         </div>
       </div>
@@ -84,4 +41,4 @@ console.log("email", email)
   );
 };
 
-export default RegisterForm;
+export default RegisterPlan;
