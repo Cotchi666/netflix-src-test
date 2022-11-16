@@ -20,7 +20,7 @@ export default function Featured({ type, setGenre }) {
   useEffect(() => {
     const getRandomContent = async () => {
       try {
-        const res = await axios.get(`/movies/random?type=${type}`, {
+        const res = await axios.get(`movies/random?type=${type}`, {
           headers: {
             token:
               "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
@@ -68,11 +68,8 @@ export default function Featured({ type, setGenre }) {
           <span className="desc">{content.desc}</span>
           <div className="buttons">
             <Link
-              to={{
-                pathname: "/movie",
-                content: content,
-                className: "linkStyle",
-              }}
+            to={{ pathname: "/watch", movie: content }}
+              
             >
               <button className="play">
                 <PlayArrow />

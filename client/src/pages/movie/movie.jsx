@@ -54,7 +54,6 @@ export default function Movie() {
           <DefaultControls hideOnMouseLeave activeDuration={2000} />
         </DefaultUi>
       </Player>
-      helo
     </div>
   );
 }

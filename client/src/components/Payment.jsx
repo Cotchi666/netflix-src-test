@@ -10,20 +10,21 @@ import { Redirect, useHistory } from "react-router-dom";
 import Loader from "./Loader/Loader";
 import { useContext } from "react";
 import { AuthContext } from "../authContext/AuthContext";
+
 const Payment = (props) => {
-  const { email, password,username ,plan } = props.location.state;
+  const { email, username, password,  plan } = props.location.state;
   // const {isAuth} = useSelector(state=>state.login)
   const { dispatch } = useContext(AuthContext);
   console.log("plan", plan);
   const history = useHistory();
-
+console.log("username2", props.location.state)
   // if(isAuth){
   //   history.push("/profiles")
   // // }
   // const dispatch = useDispatch();
   const handlePayment = async (e) => {
     const API_URL = "http://localhost:8800";
-    const response = await Axios.post("http://localhost:8800/payment", {
+    const response = await Axios.post("https://aappii.herokuapp.com/payment", {
       amount: plan,
       currency: "INR",
       receipt: uuidv4(),
@@ -40,7 +41,7 @@ const Payment = (props) => {
           console.log("payment id", paymentId);
 
           const captureResponse = await Axios.post(
-            `http://localhost:8800/capture/${paymentId}`,
+            `https://aappii.herokuapp.com/capture/${paymentId}`,
             {
               amount: plan,
             }
@@ -48,10 +49,10 @@ const Payment = (props) => {
           const successObj = JSON.parse(captureResponse.data);
           const captured = successObj.captured;
           
-          //const username = "hello2";
+          // const username = "hello2";
           if (captured) {
             try {
-              await Axios.post("http://localhost:8800/api/auth/register", {
+              await Axios.post("auth/register", {
                 email,
                 username,
                 password,

@@ -32,7 +32,7 @@ export default function Watch() {
   return (
     <div className="watch">
 
-      <Link to="/">
+      <Link to="/browse">
         <div className="back">
           <ArrowBackOutlined />
           Home
