@@ -12,8 +12,6 @@ const request = require("request");
 
 dotenv.config();
 
-
-
 const mongoose = require('./config/mongoDb');
 mongoose.connect();
 
@@ -61,10 +59,10 @@ app.post("/payment", (req, res) => {
 
 app.post("/capture/:paymentId", (req, res) => {
   try {
-    console.log(
-      "vao payment capture" ,req.body.amount
-    );
-    console.log("req paymet id", req.params.paymentId);
+    // console.log(
+    //   "vao payment capture" ,req.body.amount
+    // );
+    // console.log("req paymet id", req.params.paymentId);
     return request(
       {
         method: "POST",
@@ -74,7 +72,6 @@ app.post("/capture/:paymentId", (req, res) => {
           currency: "INR",
         },
       },
-      
       async function (error, response, body) {
         if (error) {
           console.log("req", req);
